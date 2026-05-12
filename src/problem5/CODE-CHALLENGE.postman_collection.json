@@ -1,0 +1,148 @@
+{
+  "info": {
+    "_postman_id": "5f6110e3-40b7-4b3a-bdea-4a6b73853f55",
+    "name": "CODE-CHALLENGE",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54739021",
+    "_collection_link": "https://go.postman.co/collection/54739021-5f6110e3-40b7-4b3a-bdea-4a6b73853f55?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create Resource",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Postman resource\",\r\n  \"description\": \"created from Postman test\",\r\n  \"category\": \"postman\",\r\n  \"isActive\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:3000/resources",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "resources"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List Resources",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:3000/resources?category=postman&limit=10&offset=0",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "resources"
+          ],
+          "query": [
+            {
+              "key": "category",
+              "value": "postman"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            },
+            {
+              "key": "offset",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Resource Detail",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:3000/resources/1",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "resources",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Resource Item",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Updated resource name\",\r\n  \"description\": \"Updated description\",\r\n  \"category\": \"updated\",\r\n  \"isActive\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:3000/resources/1",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "resources",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Resource Item",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "localhost:3000/resources/1",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "resources",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
