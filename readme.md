@@ -27,6 +27,8 @@ A modern cryptocurrency exchange interface built with:
 - Environment-based toggle to show/hide no-price currencies
 - Real-time swap calculations with loading, error, and success states
 
+**[View Live →](https://code-challenge-ruby-six.vercel.app/)**
+
 **[View Project →](https://github.com/residentevilrenz/code-challenge/tree/master/src/problem2)**
 
 ### Problem 3: Messy React Refactoring
