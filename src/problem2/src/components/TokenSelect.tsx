@@ -8,6 +8,7 @@ interface TokenSelectProps {
   selectedCurrency: string;
   onChange: (currency: string) => void;
   disabledCurrency?: string;
+  showNoPriceItems?: boolean;
 }
 
 export function TokenSelect({
@@ -16,11 +17,8 @@ export function TokenSelect({
   selectedCurrency,
   onChange,
   disabledCurrency,
+  showNoPriceItems = true,
 }: TokenSelectProps) {
-  const showNoPriceItems =
-    String(import.meta.env.SHOW_NO_PRICE_ITEMS ?? "true").toLowerCase() !==
-    "false";
-
   const pricedCurrencies = useMemo(
     () => new Set(tokens.map((token) => token.currency)),
     [tokens],

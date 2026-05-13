@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { usePrices } from "../hooks/usePrices";
 import { TokenSelect } from "./TokenSelect";
 import { AmountInput } from "./AmountInput";
@@ -22,6 +22,15 @@ export function SwapForm() {
   const [success, setSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [rotation, setRotation] = useState(0);
+  const [showNoPriceItems, setShowNoPriceItems] = useState(
+    String(import.meta.env.SHOW_NO_PRICE_ITEMS ?? "true").toLowerCase() !==
+      "false",
+  );
+
+  const pricedCurrencies = useMemo(
+    () => new Set(tokens.map((token) => token.currency)),
+    [tokens],
+  );
 
   const defaultFromCurrency = useMemo(() => {
     if (tokens.length === 0) return "";
@@ -39,6 +48,16 @@ export function SwapForm() {
 
   const activeFromCurrency = fromCurrency || defaultFromCurrency;
   const activeToCurrency = toCurrency || defaultToCurrency;
+
+  useEffect(() => {
+    if (showNoPriceItems) return;
+    if (fromCurrency && !pricedCurrencies.has(fromCurrency)) {
+      setFromCurrency("");
+    }
+    if (toCurrency && !pricedCurrencies.has(toCurrency)) {
+      setToCurrency("");
+    }
+  }, [fromCurrency, pricedCurrencies, showNoPriceItems, toCurrency]);
 
   const fromToken = tokens.find((t) => t.currency === activeFromCurrency);
   const toToken = tokens.find((t) => t.currency === activeToCurrency);
@@ -127,7 +146,21 @@ export function SwapForm() {
     >
       {/* Header */}
       <div className="p-5 pb-0">
-        <h2 className="text-lg font-semibold text-rose-900">Swap</h2>
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="text-lg font-semibold text-rose-900">Swap</h2>
+          <button
+            type="button"
+            onClick={() => setShowNoPriceItems((prev) => !prev)}
+            aria-pressed={showNoPriceItems}
+            className={`rounded-md border px-2.5 py-1 text-xs font-semibold transition-colors ${
+              showNoPriceItems
+                ? "border-rose-500 bg-rose-500 text-white hover:bg-rose-400"
+                : "border-rose-300 bg-white/70 text-rose-700 hover:bg-rose-50"
+            }`}
+          >
+            {showNoPriceItems ? "Hide" : "Show"} No price items
+          </button>
+        </div>
       </div>
 
       {/* From section */}
@@ -144,6 +177,7 @@ export function SwapForm() {
             selectedCurrency={activeFromCurrency}
             onChange={setFromCurrency}
             disabledCurrency={activeToCurrency}
+            showNoPriceItems={showNoPriceItems}
           />
         </div>
       </div>
@@ -186,6 +220,7 @@ export function SwapForm() {
             selectedCurrency={activeToCurrency}
             onChange={setToCurrency}
             disabledCurrency={activeFromCurrency}
+            showNoPriceItems={showNoPriceItems}
           />
         </div>
       </div>
