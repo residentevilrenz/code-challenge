@@ -23,7 +23,7 @@ export function SwapForm() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [rotation, setRotation] = useState(0);
   const [showNoPriceItems, setShowNoPriceItems] = useState(
-    String(import.meta.env.SHOW_NO_PRICE_ITEMS ?? "true").toLowerCase() !==
+    String(import.meta.env.VITE_SHOW_NO_PRICE_ITEMS ?? "true").toLowerCase() !==
       "false",
   );
 
@@ -225,10 +225,17 @@ export function SwapForm() {
         </div>
       </div>
 
-      {/* Exchange rate */}
-      {exchangeRate && (
-        <div className="px-5 pb-2 text-center">
-          <span className="text-xs text-rose-700">{exchangeRate}</span>
+      {/* Estimated result */}
+      {(toAmount || exchangeRate) && (
+        <div className="px-5 pb-2 text-center space-y-0.5">
+          {toAmount && (
+            <p className="text-sm font-medium text-rose-900">
+              ≈ {toAmount} {activeToCurrency}
+            </p>
+          )}
+          {exchangeRate && (
+            <p className="text-xs text-rose-700">{exchangeRate}</p>
+          )}
         </div>
       )}
 
